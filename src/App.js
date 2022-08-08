@@ -8,7 +8,6 @@ const App = () => {
   const [data2, setData2] = useState([]);
   const [save, setSave] = useState([]);
 
-  // Inputga quloq solib turadi Inputni ichida Enter bosilsa shu funksiya ishlaydi
   function handleInputChange(evt) {
     if (evt.code === "Enter") {
       setvalue(evt.target.value);
@@ -17,27 +16,25 @@ const App = () => {
   }
 
   useEffect(() => {
-    // Hargal inputdagi value o'zgarganda fetch qiladi (agar inputda value mavjud bo'lsa)
     if (value) {
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=ff5bcda0d22bee80304f787a3b336e9d&units=metric`
       )
         .then((res) => res.json())
-        .then((info) => setData([...data, info])); // har gal fetch qilganda oldingi shaharlani nomi ham o'chib ketmasligi kerak shuning uchun ...data qilib oldingi datani ham olib qo'yish kerak
+        .then((info) => setData([...data, info])); 
     }
   }, [value]);
   
   
   useEffect(() => {
-    // Hargal inputdagi value o'zgarganda fetch qiladi (agar inputda value mavjud bo'lsa)
     if (value) {
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=ff5bcda0d22bee80304f787a3b336e9d&units=metric`
       )
         .then((res) => res.json())
-        .then((info) => setData2([ info])); // har gal fetch qilganda oldingi shaharlani nomi ham o'chib ketmasligi kerak shuning uchun ...data qilib oldingi datani ham olib qo'yish kerak
+        .then((info) => setData2([ info]));
     }
-  }, [value]);// har gal value o'zgarganda
+  }, [value]);
 
   return (
     <div className="App">
@@ -75,7 +72,6 @@ const App = () => {
           <h2>Last searched.</h2>
           </li>
           {
-            // agar datani uzunligi beshdan kichkina bo'lsa 0 dan beshgacha bo'lganini olib beradi agar beshdan katta bo'lsa oxirgi beshtasini olib beradi. Batafsil: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice ⬇️⬇️⬇️
             data
               ?.slice(data.length <= 5 ? 0 : Math.abs(data.length - 5))
               .map((e) => (
@@ -83,7 +79,7 @@ const App = () => {
                   <button
                   className="button"
                     name={e.name}
-                    onClick={() => setSave([...save, e])} // button bosilganda oldingi saved arrayni ichida shaharlani ham olib keladi va hozir bosilgan shaharni ham saved ga qo'shib qo'yadi(setSave qiladi)
+                    onClick={() => setSave([...save, e])} 
                   >
                     🤍
                   </button>
